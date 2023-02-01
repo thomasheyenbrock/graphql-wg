@@ -173,8 +173,15 @@ After a TSC seat vacancy the remaining TSC will collect self-nominations and vot
 
 When something cannot be decided by consensus or a formal vote is required, the TSC will use a method appropriate to the situation:
 
-- Simple majority for single-winner votes.
-- Condorcet method for multiple-winner votes.
+| Situation                      | Response         | Method                                   |
+| ------------------------------ | ---------------- | ---------------------------------------- |
+| Binary choice                  | Single choice    | Simple majority as per [procedure][]     |
+| Many choices, single winner    | Rank all choices | [Condorcet Beatpath/Schulze][]           |
+| Many choices, multiple winners | Rank all choices | [Single Transferable Vote (STV), Meek][] |
+
+[procedure]: #voting-procedure
+[condorcet beatpath/schulze]: https://en.wikipedia.org/wiki/Schulze_method
+[single transferable vote (stv), meek]: https://en.wikipedia.org/wiki/Counting_single_transferable_votes#Meek
 
 The ballots may be public or private depending upon the situation, but the aggregate results should always be published.
 
@@ -197,8 +204,8 @@ Because we work in a distributed environment, the voting process must account fo
 
 Once a valid vote is concluded, the result is determined by the number of votes received at that time (as opposed to the total number of TSC members):
 
-- For a single-winner simple majority (or supermajority), the votes in favor must exceed half (or 2/3) of the total number of votes.
-- For a multiple-winner method, all votes received at the time the vote is concluded are considered.
+- For a binary choice, the votes in favor must exceed half for a majority (or 2/3 for a supermajority) of the total number of votes.
+- For ranked choices, all votes received at the time the vote is concluded are considered.
 
 ### Non-votes
 
@@ -209,6 +216,20 @@ TSC members are not required to vote. There are three ways an _attending_ member
 - **Recused:** A reply of "recusal" causes a member to not count as an _attending_ member for the purposes of this vote. This has the practical impact of both lowering the number of _attending_ members required to reach quorum, and the number of "yes" votes required for a motion to pass. A member may reply "recused" if they want to remove themselves to minimize their impact on a vote, often due to a conflict of interest.
 
 Note: Non-attending members do not count towards quorum, and should they not vote are effectively recused.
+
+### All possible vote types
+
+And their impact on what counts towards each factor of the voting process.
+
+| Vote                            | Counts as _attending_ | Counts towards _quorum_ | Counts towards a choice |
+| ------------------------------- | :-------------------: | :---------------------: | :---------------------: |
+| Attending member choice         |          ✅           |           ✅            |           ✅            |
+| Attending member present        |          ✅           |           ✅            |           ❌            |
+| Attending member absent         |          ✅           |           ❌            |           ❌            |
+| Attending member abstain        |          ✅           |           ❌            |           ❌            |
+| Attending member recused        |          ❌           |           ❌            |           ❌            |
+| "Non-attending member" choice   |          ❌           |           ❌            |           ✅            |
+| "Non-attending member" non-vote |          ❌           |           ❌            |           ❌            |
 
 ### Voting procedure
 
